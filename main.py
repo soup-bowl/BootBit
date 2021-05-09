@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter.constants import CENTER, N
+from PIL import Image
 
 class App:
 	def __init__(self, root):
@@ -12,6 +13,7 @@ class App:
 		screenheight = root.winfo_screenheight()
 		alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
 		root.geometry(alignstr)
+		root.resizable(False, False)
 
 		msgWelcome=tk.Label(root)
 		msgWelcome.config(
@@ -24,12 +26,15 @@ class App:
 		frmDashboard.grid(sticky="NSEW", column=2, row=0)
 		frmDashboard.place(x=125, y=200)
 
+		imgApple    = Image.open('logo-apple.png')
+		imgAppleRef = tk.PhotoImage(imgApple) 
+
 		btnMac=tk.Button(frmDashboard)
 		btnMac["fg"] = "#000000"
 		btnMac["justify"] = "center"
 		btnMac["text"] = "System 9"
 		btnMac["command"] = self.boot_mac
-		btnMac.config(height=10,width=20)
+		btnMac.config(height=10,width=20, image=imgAppleRef)
 		btnMac.grid(column=0, row=0)
 
 		btnDOS=tk.Button(frmDashboard)
