@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter.constants import CENTER, N
-from PIL import Image
 
 class App:
 	def __init__(self, root):
@@ -26,15 +25,15 @@ class App:
 		frmDashboard.grid(sticky="NSEW", column=2, row=0)
 		frmDashboard.place(x=125, y=200)
 
-		imgApple    = Image.open('logo-apple.png')
-		imgAppleRef = tk.PhotoImage(imgApple) 
+		#imgApple    = Image.open('logo-apple.png')
+		#imgAppleRef = tk.PhotoImage(file='logo-apple.png') 
 
 		btnMac=tk.Button(frmDashboard)
 		btnMac["fg"] = "#000000"
 		btnMac["justify"] = "center"
 		btnMac["text"] = "System 9"
 		btnMac["command"] = self.boot_mac
-		btnMac.config(height=10,width=20, image=imgAppleRef)
+		btnMac.config(height=10,width=20)
 		btnMac.grid(column=0, row=0)
 
 		btnDOS=tk.Button(frmDashboard)
