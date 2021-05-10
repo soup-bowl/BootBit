@@ -22,7 +22,7 @@ class App:
 		msgWelcome.config(
 			justify=CENTER,
 			text="Choose an Operating System to start."
-		)
+			)
 		msgWelcome.place(x=175,y=100)
 
 		frmDashboard = tk.Frame(self.tk)
@@ -33,19 +33,23 @@ class App:
 		#imgAppleRef = tk.PhotoImage(file='logo-apple.png') 
 
 		btnMac=tk.Button(frmDashboard)
-		btnMac["fg"] = "#000000"
-		btnMac["justify"] = "center"
-		btnMac["text"] = "System 9"
-		btnMac["command"] = self.boot_mac
-		btnMac.config(height=10,width=20)
+		btnMac.config(
+			height=10,
+			width=20,
+			justify=CENTER,
+			text="System 9",
+			command=self.boot_mac
+			)
 		btnMac.grid(column=0, row=0)
 
 		btnDOS=tk.Button(frmDashboard)
-		btnDOS["fg"] = "#000000"
-		btnDOS["justify"] = "center"
-		btnDOS["text"] = "DOS"
-		btnDOS["command"] = self.boot_dos
-		btnDOS.config(height=10,width=20)
+		btnDOS.config(
+			height=10,
+			width=20,
+			justify=CENTER,
+			text="DOS",
+			command=self.boot_dos
+			)
 		btnDOS.grid(column=1, row=0)
 
 	def toggle_fullscreen(self, event=None):
