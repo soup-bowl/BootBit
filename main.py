@@ -7,15 +7,14 @@ class App:
 		self.tk    = tk.Tk()
 		self.state = False
 
-		self.tk.title("Choose an Operating System")
-
-		width=640
-		height=480
-		screenwidth = self.tk.winfo_screenwidth()
+		width        = 640
+		height       = 480
+		screenwidth  = self.tk.winfo_screenwidth()
 		screenheight = self.tk.winfo_screenheight()
-		alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+		alignstr     = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+
+		self.tk.title("Choose an Operating System")
 		self.tk.geometry(alignstr)
-		self.tk.resizable(False, False)
 		self.tk.bind("<F11>", self.toggle_fullscreen)
 		self.tk.bind("<Escape>", self.end_fullscreen)
 
