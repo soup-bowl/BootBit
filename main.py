@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 import subprocess
 
 sg.theme('SystemDefault1')
-font = 'Arial 14'
+font = 'Arial 16'
 
 exeApple = '(cd ~/Macintosh && ./Mini_vMac_ARM)'
 exeDOS   = 'dosbox'
