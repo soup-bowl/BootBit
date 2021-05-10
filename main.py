@@ -1,27 +1,32 @@
 import tkinter as tk
+import subprocess
 from tkinter.constants import CENTER, N
 
 class App:
-	def __init__(self, root):
+	def __init__(self):
+		self.tk    = tk.Tk()
+		self.state = False
 
-		root.title("Choose an Operating System")
+		self.tk.title("Choose an Operating System")
 
 		width=640
 		height=480
-		screenwidth = root.winfo_screenwidth()
-		screenheight = root.winfo_screenheight()
+		screenwidth = self.tk.winfo_screenwidth()
+		screenheight = self.tk.winfo_screenheight()
 		alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-		root.geometry(alignstr)
-		root.resizable(False, False)
+		self.tk.geometry(alignstr)
+		self.tk.resizable(False, False)
+		self.tk.bind("<F11>", self.toggle_fullscreen)
+		self.tk.bind("<Escape>", self.end_fullscreen)
 
-		msgWelcome=tk.Label(root)
+		msgWelcome=tk.Label(self.tk)
 		msgWelcome.config(
 			justify=CENTER,
 			text="Choose an Operating System to start."
 		)
 		msgWelcome.place(x=175,y=100)
 
-		frmDashboard = tk.Frame(root)
+		frmDashboard = tk.Frame(self.tk)
 		frmDashboard.grid(sticky="NSEW", column=2, row=0)
 		frmDashboard.place(x=125, y=200)
 
@@ -44,15 +49,26 @@ class App:
 		btnDOS.config(height=10,width=20)
 		btnDOS.grid(column=1, row=0)
 
+	def toggle_fullscreen(self, event=None):
+		self.state = not self.state  # Just toggling the boolean
+		self.tk.attributes("-fullscreen", self.state)
+		return "break"
+
+	def end_fullscreen(self, event=None):
+		self.state = False
+		self.tk.attributes("-fullscreen", False)
+		return "break"
+
 
 	def boot_mac(self):
-		print("command")
+		process = subprocess.Popen("echo hello", shell=True, stdout=subprocess.PIPE)
+		process.wait()
+		print(process.returncode)
 
 
 	def boot_dos(self):
 		print("command")
 
 if __name__ == "__main__":
-	root = tk.Tk()
-	app = App(root)
-	root.mainloop()
+	app = App()
+	app.tk.mainloop()
