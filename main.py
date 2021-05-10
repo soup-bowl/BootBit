@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 
+sg.theme('SystemDefault1')
+
 welcomeLabel = "Choose an Operating System to begin."
 
 colApple = sg.Column([ [sg.Button(key='sys9', image_filename='./logo-apple.png')], [sg.Text('System 7')] ], element_justification='c')
