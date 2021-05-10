@@ -31,23 +31,23 @@ window = sg.Window(
 
 window.maximize()
 
-while True:             
+while True:
 	event, values = window.read()
 	try:
 		if event == 'sys9':
 			process = subprocess.Popen(exeApple.split())
-		
+
 		if event == 'dos':
 			process = subprocess.Popen(exeDOS.split())
 	except IndexError:
 		sg.Popup('No command specified.', title='No runner specified', keep_on_top=True)
 	except FileNotFoundError:
 		sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
-	
+
 	if event == 'shut':
 		process = subprocess.Popen(['sudo', 'shutdown', '-r', 'now'])
 		break;
-	
+
 	if event in (sg.WIN_CLOSED, 'quit'):
 		break
 
