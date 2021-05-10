@@ -1,0 +1,11 @@
+[Unit]
+Description=Bootbit GUI Loader
+After=network-online.target
+[Service]
+ExecStart=/home/pi/BootBit/start.sh
+WorkingDirectory=/home/pi/BootBit
+StandardOutput=inherit
+StandardError=inherit
+User=pi
+[Install]
+WantedBy=multi-user.target
