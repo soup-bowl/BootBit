@@ -1,77 +1,22 @@
-import tkinter as tk
-import subprocess
-from tkinter.constants import CENTER, N
+import PySimpleGUI as sg
 
-class App:
-	def __init__(self):
-		self.tk    = tk.Tk()
-		self.state = False
+welcomeLabel = "Choose an Operating System to begin."
 
-		width        = 640
-		height       = 480
-		screenwidth  = self.tk.winfo_screenwidth()
-		screenheight = self.tk.winfo_screenheight()
-		alignstr     = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+layout = [
+	[sg.Text(welcomeLabel, justification='center', size=(200,1))],
+	[
+		sg.Button('', key='sys9', image_filename='./logo-apple.png'),
+		sg.Button('', key='dos', image_filename='./logo-windows.png')
+	],
+	[sg.Cancel('Exit', key='quit', auto_size_button=True)]
+]
 
-		self.tk.title("Choose an Operating System")
-		self.tk.geometry(alignstr)
-		self.tk.bind("<F11>", self.toggle_fullscreen)
-		self.tk.bind("<Escape>", self.end_fullscreen)
+window = sg.Window(welcomeLabel, layout, element_justification='c', resizable=True, auto_size_buttons=True).finalize()
+window.maximize()
 
-		msgWelcome=tk.Label(self.tk)
-		msgWelcome.config(
-			justify=CENTER,
-			text="Choose an Operating System to start."
-			)
-		msgWelcome.place(x=175,y=100)
+while True:             
+    event, values = window.read()
+    if event in (sg.WIN_CLOSED, 'quit'):
+        break
 
-		frmDashboard = tk.Frame(self.tk)
-		frmDashboard.grid(sticky="NSEW", column=2, row=0)
-		frmDashboard.place(x=125, y=200)
-
-		#imgApple    = Image.open('logo-apple.png')
-		#imgAppleRef = tk.PhotoImage(file='logo-apple.png') 
-
-		btnMac=tk.Button(frmDashboard)
-		btnMac.config(
-			height=10,
-			width=20,
-			justify=CENTER,
-			text="System 9",
-			command=self.boot_mac
-			)
-		btnMac.grid(column=0, row=0)
-
-		btnDOS=tk.Button(frmDashboard)
-		btnDOS.config(
-			height=10,
-			width=20,
-			justify=CENTER,
-			text="DOS",
-			command=self.boot_dos
-			)
-		btnDOS.grid(column=1, row=0)
-
-	def toggle_fullscreen(self, event=None):
-		self.state = not self.state  # Just toggling the boolean
-		self.tk.attributes("-fullscreen", self.state)
-		return "break"
-
-	def end_fullscreen(self, event=None):
-		self.state = False
-		self.tk.attributes("-fullscreen", False)
-		return "break"
-
-
-	def boot_mac(self):
-		process = subprocess.Popen("echo hello", shell=True, stdout=subprocess.PIPE)
-		process.wait()
-		print(process.returncode)
-
-
-	def boot_dos(self):
-		print("command")
-
-if __name__ == "__main__":
-	app = App()
-	app.tk.mainloop()
+window.close()
