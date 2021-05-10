@@ -1,13 +1,12 @@
 import PySimpleGUI as sg
 
 welcomeLabel = "Choose an Operating System to begin."
-bgColor      = 'black'
 
-colApple = sg.Column([ [sg.Button('', key='sys9', image_filename='./logo-apple.png')], [sg.Text('System 7')] ], element_justification='center')
-colWin   = sg.Column([ [sg.Button('', key='dos', image_filename='./logo-windows.png')], [sg.Text('DOS')] ], element_justification='center')
+colApple = sg.Column([ [sg.Button(key='sys9', image_filename='./logo-apple.png')], [sg.Text('System 7')] ], element_justification='c')
+colWin   = sg.Column([ [sg.Button(key='dos', image_filename='./logo-windows.png')], [sg.Text('DOS')] ], element_justification='c')
 
 layout = [
-	[sg.Image('./Happy_Mac.gif')],
+	[sg.Image('./logo-happymac.gif')],
 	[sg.Text(welcomeLabel, size=(200,1))],
 	[colApple, colWin],
 	[sg.Cancel('Exit', key='quit', auto_size_button=True)]
@@ -15,7 +14,7 @@ layout = [
 
 window = sg.Window(
 	welcomeLabel,
-	layout,
+	layout=layout,
 	element_justification='c',
 	text_justification='c',
 	resizable=True,
