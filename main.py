@@ -1,6 +1,10 @@
 import PySimpleGUI as sg
+import subprocess
 
 sg.theme('SystemDefault1')
+
+exeApple = '(cd ~/Macintosh && ./Mini_vMac_ARM)'
+exeDOS   = 'dosbox'
 
 welcomeLabel = "Choose an Operating System to begin."
 
@@ -26,8 +30,23 @@ window = sg.Window(
 window.maximize()
 
 while True:             
-    event, values = window.read()
-    if event in (sg.WIN_CLOSED, 'quit'):
-        break
+	event, values = window.read()
+	try:
+		if event == 'sys9':
+			process = subprocess.Popen(exeApple.split())
+		
+		if event == 'dos':
+			process = subprocess.Popen(exeDOS.split())
+	except IndexError:
+		sg.Popup('No command specified.', title='No runner specified', keep_on_top=True)
+	except FileNotFoundError:
+		sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
+	
+	if event == 'shut':
+		process = subprocess.Popen(['sudo', 'shutdown', '-r', 'now'])
+		break;
+	
+	if event in (sg.WIN_CLOSED, 'quit'):
+		break
 
 window.close()
