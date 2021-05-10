@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import subprocess
 
 sg.theme('SystemDefault1')
+font = 'Arial 14'
 
 exeApple = '(cd ~/Macintosh && ./Mini_vMac_ARM)'
 exeDOS   = 'dosbox'
@@ -24,7 +25,8 @@ window = sg.Window(
 	element_justification='c',
 	text_justification='c',
 	resizable=True,
-	auto_size_buttons=True	
+	auto_size_buttons=True,
+	font=font
 ).finalize()
 
 window.maximize()
