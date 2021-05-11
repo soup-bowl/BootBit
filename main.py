@@ -4,7 +4,7 @@ import subprocess
 sg.theme('SystemDefault1')
 font = 'Arial 16'
 
-exeApple = '(cd ~/Macintosh && ./Mini_vMac_ARM)'
+exeApple = 'Mini_vMac_ARM'
 exeDOS   = 'dosbox'
 
 welcomeLabel = "Choose an Operating System to begin."
@@ -35,7 +35,7 @@ while True:
 	event, values = window.read()
 	try:
 		if event == 'sys9':
-			process = subprocess.Popen(exeApple.split())
+			process = subprocess.Popen(exeApple.split(), cwd='~/Macintosh')
 
 		if event == 'dos':
 			process = subprocess.Popen(exeDOS.split())
