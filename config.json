@@ -1,0 +1,16 @@
+{
+	"options": [
+		{
+			"name": "System 7",
+			"logo": "./assets/logo-apple.png",
+			"command": "./Mini_vMac_ARM",
+			"cwd": "/home/pi/Macintosh"
+		},
+		{
+			"name": "DOS",
+			"logo": "./assets/logo-windows.png",
+			"command": "dosbox",
+			"cwd": ""
+		}
+	]
+}

@@ -1,7 +1,19 @@
 import PySimpleGUI as sg
 import subprocess
+import json
+import sys
 
 sg.theme('SystemDefault1')
+data = None
+try:
+	with open("./config.json") as json_file:
+		data = json.load(json_file)
+except FileNotFoundError:
+	msg = 'No configuration file found. A config.json file is required.'
+	sg.Popup(msg, title='config.json missing', keep_on_top=True)
+	print(msg)
+	sys.exit(1)
+
 font = 'Arial 16'
 
 exeApple = './Mini_vMac_ARM'
@@ -9,13 +21,19 @@ exeDOS   = 'dosbox'
 
 welcomeLabel = "Choose an Operating System to begin."
 
-colApple = sg.Column([ [sg.Button(key='sys9', image_filename='./logo-apple.png', pad=(5,5))], [sg.Text('System 7')] ], element_justification='c')
-colWin   = sg.Column([ [sg.Button(key='dos', image_filename='./logo-windows.png', pad=(5,5))], [sg.Text('DOS')] ], element_justification='c')
+columns = []
+for i, entry in enumerate(data['options']):
+	columns.append(
+		sg.Column([
+			[sg.Button(key=entry['name'], image_filename=entry['logo'], pad=(5,5))],
+			[sg.Text(entry['name'])]
+		], element_justification='c')
+	)
 
 layout = [
-	[sg.Image('./logo-happymac.gif')],
+	[sg.Image('./assets/logo-happymac.gif')],
 	[sg.Text(welcomeLabel)],
-	[colApple, colWin],
+	columns,
 	[sg.Cancel('Exit', key='quit'), sg.Button(button_text='Shutdown', key='shut')]
 ]
 
@@ -33,16 +51,6 @@ window.maximize()
 
 while True:
 	event, values = window.read()
-	try:
-		if event == 'sys9':
-			process = subprocess.Popen(exeApple.split(), cwd='/home/pi/Macintosh')
-
-		if event == 'dos':
-			process = subprocess.Popen(exeDOS.split())
-	except IndexError:
-		sg.Popup('No command specified.', title='No runner specified', keep_on_top=True)
-	except FileNotFoundError:
-		sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
 
 	if event == 'shut':
 		process = subprocess.Popen(['sudo', 'shutdown', '-r', 'now'])
@@ -50,5 +58,19 @@ while True:
 
 	if event in (sg.WIN_CLOSED, 'quit'):
 		break
+	
+	for entry in data['options']:
+		if event == entry['name']:
+			try:
+				op_path = None if not entry['cwd'] else entry['cwd']
+
+				print("Executing '"+ entry['command'] + ("." if op_path == None else "' (in directory '" + op_path + "').") )
+				process = subprocess.Popen(entry['command'].split(), cwd=op_path)
+			except IndexError:
+				sg.Popup('No command specified.', title='No runner specified', keep_on_top=True)
+				print("Failed, no command found.")
+			except FileNotFoundError:
+				sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
+				print("Failed, no application found.")
 
 window.close()
