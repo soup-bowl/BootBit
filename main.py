@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as tkmb
 from PIL import Image, ImageTk
 from functools import partial
 import subprocess
@@ -36,10 +37,10 @@ def load_app(command, cwd=None):
 		print("Executing '"+ command + ("." if op_path == None else "' (in directory '" + op_path + "').") )
 		process = subprocess.Popen(command.split(), cwd=op_path)
 	except IndexError:
-		#sg.Popup('No command specified.', title='No runner specified', keep_on_top=True)
+		tkmb.showinfo('No runner specified', 'No command specified.')
 		print("Failed, no command found.")
 	except FileNotFoundError:
-		#sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
+		tkmb.showinfo('No application', 'Couldn\'t find the requested application.')
 		print("Failed, no application found.")
 
 frmMain = tk.Frame(master=window)
