@@ -64,7 +64,7 @@ frmMain.pack()
 
 # Happy Macintosh logo.
 imgLogo = tk.PhotoImage(data=icon)
-frmLogo = tk.Frame(master=frmMain, relief=tk.RAISED, borderwidth=1)
+frmLogo = tk.Frame(master=frmMain)
 frmLogo.grid(row=0, column=0, columnspan=dsize)
 lblLogo = tk.Label(master=frmLogo, image=imgLogo)
 lblLogo.pack()
