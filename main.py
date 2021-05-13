@@ -77,11 +77,17 @@ lblWelcome.pack()
 
 # Each boot selection square.
 for i, entry in enumerate(data['options']):
-	icons[i] = ImageTk.PhotoImage(file=entry['logo'])
+	try:
+		icons[i] = ImageTk.PhotoImage(file=entry['logo'])
+	except FileNotFoundError:
+		icons[i] = None
 
 	frmItem = tk.Frame(master=frmMain)
 	frmItem.grid(row=2, column=i)
-	btnItem = tk.Button(master=frmItem, image=icons[i], command=partial( load_app, entry['command'], entry['cwd'] ))
+	if icons[i] != None:
+		btnItem = tk.Button(master=frmItem, image=icons[i], command=partial( load_app, entry['command'], entry['cwd'] ))
+	else:
+		btnItem = tk.Button(master=frmItem, text=entry['name'], padx=40, pady=40, command=partial( load_app, entry['command'], entry['cwd'] ))
 	btnItem.pack()
 	
 	frmLabel = tk.Frame(master=frmMain)
