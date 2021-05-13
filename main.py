@@ -14,7 +14,6 @@ window.attributes('-fullscreen', True)
 
 data  = None
 icons = {}
-funct = {}
 try:
 	with open("./config.json") as json_file:
 		data = json.load(json_file)
@@ -43,13 +42,19 @@ def load_app(command, cwd=None):
 		#sg.Popup('Couldn\'t find the requested application.', title='No application', keep_on_top=True)
 		print("Failed, no application found.")
 
+frmMain = tk.Frame(master=window)
+frmMain.grid(row=0, column=0, sticky="nsew")
+window.grid_columnconfigure(0, weight=1)
+window.grid_rowconfigure(0, weight=1)
+frmMain.pack()
+
 imgLogo = tk.PhotoImage(data=icon)
-frmLogo = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
+frmLogo = tk.Frame(master=frmMain, relief=tk.RAISED, borderwidth=1)
 frmLogo.grid(row=0, column=0, columnspan=2)
 lblLogo = tk.Label(master=frmLogo, image=imgLogo)
 lblLogo.pack()
 
-frmWelcome = tk.Frame(master=window)
+frmWelcome = tk.Frame(master=frmMain)
 frmWelcome.grid(row=1, column=0, columnspan=2)
 lblWelcome = tk.Label(master=frmWelcome, text=welcome, font=font)
 lblWelcome.pack()
@@ -57,17 +62,22 @@ lblWelcome.pack()
 for i, entry in enumerate(data['options']):
 	icons[i] = ImageTk.PhotoImage(file=entry['logo'])
 
-	frmItem = tk.Frame(master=window)
+	frmItem = tk.Frame(master=frmMain)
 	frmItem.grid(row=2, column=i)
 	btnItem = tk.Button(master=frmItem, image=icons[i], command=partial( load_app, entry['command'], entry['cwd'] ))
 	btnItem.pack()
+	
+	frmLabel = tk.Frame(master=frmMain)
+	frmLabel.grid(row=3, column=i)
+	lblLabel = tk.Label(master=frmLabel, text=entry['name'], font=font)
+	lblLabel.pack()
 
-frmClose = tk.Frame(master=window)
-frmClose.grid(row=3, column=0)
+frmClose = tk.Frame(master=frmMain)
+frmClose.grid(row=4, column=0)
 btnClose = tk.Button(master=frmClose, text='Close', command=quit_app, font=font)
 btnClose.pack()
-frmShutdown = tk.Frame(master=window)
-frmShutdown.grid(row=3, column=1)
+frmShutdown = tk.Frame(master=frmMain)
+frmShutdown.grid(row=4, column=1)
 btnShutdown = tk.Button(master=frmShutdown, text='Shutdown', command=shutdown_sys, font=font)
 btnShutdown.pack()
 
