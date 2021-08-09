@@ -4,7 +4,7 @@ For the [Cardboard Macintosh project][cmp] - A simple on-boot emulation applicat
 ![image](https://user-images.githubusercontent.com/11209477/117720836-0e3e9700-b1d7-11eb-8f55-941694225e3a.png)
 
 ## Installing
-You need **Python 3** installed, and to install the script dependencies using `pip install -r requirements.txt`.
+You need **Python 3** installed, and to install the script dependencies using `pip3 install -r requirements.txt`.
 
 Drop the script anywhere you want (I put it in a folder `BootBit` in the home directory) and run it by running `python3 main.py`.
 
