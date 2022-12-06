@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BootBit
+Comment=
+Exec=/workspace/BootBit/start.sh
+Icon=
+Path=/workspace/BootBit
+Terminal=true
+StartupNotify=false

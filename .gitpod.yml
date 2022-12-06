@@ -1,4 +1,13 @@
 image: gitpod/workspace-full-vnc
 tasks:
   - name: Setup for VNC
-    init: pip install -r requirements.txt
+    init: |
+      pip install -r requirements.txt
+      mv ${GITPOD_REPO_ROOT}/.vscode/BootBit.desktop ~/Desktop
+ports:
+  - name: VNC Client
+    port: 6080
+    visibility: private
+    onOpen: open-browser
+  - name: VNC Port
+    port: 5900
