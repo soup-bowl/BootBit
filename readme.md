@@ -20,5 +20,5 @@ Adding the following to the end of your newly-available local copy (assumes you 
 
 `@lxterminal --working-directory=/home/pi/BootBit -e python3 main.py`
 
-[cmp]: https://www.soupbowl.io/2021/04/i-made-cardboard-macintosh-with-a-raspberry-pi/
+[cmp]: https://soupbowl.blog/2021/04/i-made-cardboard-macintosh-with-a-raspberry-pi
 [ldir]: https://raspberrypi.stackexchange.com/a/102297
